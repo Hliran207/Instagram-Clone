@@ -1,0 +1,30 @@
+[project]
+name = "instagram-clone"
+version = "0.1.0"
+description = "Instagram clone API"
+readme = "README.md"
+authors = [
+    { name = "Hliran207", email = "hliran2@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.162.0",
+    "pydantic-settings>=2.16.2",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.16.0",
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "N"]
