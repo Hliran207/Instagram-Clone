@@ -1,15 +1,11 @@
-from typing import Annotated
+from fastapi import APIRouter, status
 
-from fastapi import APIRouter, Depends, status
-from sqlalchemy.orm import Session
-
-from app.core.db import get_db
+from app.core.db import SessionDep
 from app.users.models import User
 from app.users.schemas import UserCreate, UserResponse
 from app.users.service import register_user
 
 router = APIRouter(tags=["users"])
-SessionDep = Annotated[Session, Depends(get_db)]
 
 
 @router.post(
