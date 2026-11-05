@@ -7,8 +7,11 @@ from app.core.exception_handlers import (
     handle_unexpected_error,
     handle_validation_error,
 )
+from app.users.router import router as users_router
 
 app = FastAPI(title="Instagram API", description="API for the Instagram project")
+app.include_router(users_router)
+
 
 app.add_exception_handler(InstagramError, handle_instagram_error)
 app.add_exception_handler(RequestValidationError, handle_validation_error)
