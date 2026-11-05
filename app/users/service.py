@@ -22,7 +22,7 @@ def register_user(session: Session, data: UserCreate) -> User:
 
 
 # This is a dummy hash to use when the user is not found.
-# It is used to prevent user enumeration attacks - timing attacks - the attacker will not
+# It used to prevent user enumeration attacks - timing attacks - the attacker will not
 # know if the username or email is correct.
 
 DUMMY_HASH = hash_password("not-a-real-password")
