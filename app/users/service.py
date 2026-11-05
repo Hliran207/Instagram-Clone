@@ -21,6 +21,11 @@ def register_user(session: Session, data: UserCreate) -> User:
     return user
 
 
+"""
+This is a dummy hash to use when the user is not found.
+It is used to prevent user enumeration attacks - timing attacks - the attacker will not
+ know if the username or email is correct.
+"""
 DUMMY_HASH = hash_password("not-a-real-password")
 
 
@@ -30,7 +35,7 @@ def authenticate_user(session: Session, login: str, password: str) -> User:
     else:
         user = get_user_by_username(session, login)
     if not user:
-        verify_password(DUMMY_PASSWORD, user.password_hash)
+        verify_password(password, DUMMY_HASH)
         raise InvalidCredentialsError("Invalid credentials")
     if not verify_password(password, user.password_hash):
         raise InvalidCredentialsError("Invalid credentials")
