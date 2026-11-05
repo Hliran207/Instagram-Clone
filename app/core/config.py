@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     postgres_db: str
     postgres_port: int = 5433
     postgres_host: str = "localhost"
-    jwt_secret_key: str
+    jwt_secret: str
     access_token_expire_minutes: int = 15
 
     @property
