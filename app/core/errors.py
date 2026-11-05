@@ -6,8 +6,12 @@ class InstagramError(Exception):
         self.message = message
 
 
-class UserAlreadyExistsError(InstagramError):
-    code = "user_already_exists"
+class UsernameAlreadyExistsError(InstagramError):
+    code = "username_already_exists"
+
+
+class EmailAlreadyExistsError(InstagramError):
+    code = "email_already_exists"
 
 
 class UserNotFoundError(InstagramError):
