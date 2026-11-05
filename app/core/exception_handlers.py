@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 from app.core.errors import (
     EmailAlreadyExistsError,
     InstagramError,
+    InvalidCredentialsError,
     UsernameAlreadyExistsError,
     UserNotFoundError,
 )
@@ -17,6 +18,7 @@ STATUS_CODES: dict[type[InstagramError], int] = {
     UsernameAlreadyExistsError: 409,
     EmailAlreadyExistsError: 409,
     UserNotFoundError: 404,
+    InvalidCredentialsError: 401,
 }
 
 

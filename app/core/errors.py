@@ -16,3 +16,7 @@ class EmailAlreadyExistsError(InstagramError):
 
 class UserNotFoundError(InstagramError):
     code = "user_not_found"
+
+
+class InvalidCredentialsError(InstagramError):
+    code = "invalid_credentials"

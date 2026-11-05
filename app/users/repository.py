@@ -1,3 +1,4 @@
+from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -30,3 +31,13 @@ def create_user(
             raise EmailAlreadyExistsError("Email already taken") from err
         raise
     return user
+
+
+def get_user_by_username(session: Session, username: str) -> User | None:
+    query = select(User).where(func.lower(User.username) == username.lower())
+    return session.scalar(query)
+
+
+def get_user_by_email(session: Session, email: str) -> User | None:
+    query = select(User).where(func.lower(User.email) == email.lower())
+    return session.scalar(query)
