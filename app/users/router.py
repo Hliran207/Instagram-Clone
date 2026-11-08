@@ -1,9 +1,10 @@
 from fastapi import APIRouter, status
 
 from app.core.db import SessionDep
+from app.core.security import create_access_token
 from app.users.models import User
-from app.users.schemas import UserCreate, UserResponse
-from app.users.service import register_user
+from app.users.schemas import TokenResponse, UserCreate, UserLogin, UserResponse
+from app.users.service import authenticate_user, register_user
 
 router = APIRouter(tags=["users"])
 
@@ -13,3 +14,9 @@ router = APIRouter(tags=["users"])
 )
 def add_user(data: UserCreate, session: SessionDep) -> User:
     return register_user(session, data)
+
+
+@router.post("/auth/login", response_model=TokenResponse)
+def login_user(data: UserLogin, session: SessionDep) -> TokenResponse:
+    user = authenticate_user(session, data.login, data.password)
+    return TokenResponse(access_token=create_access_token(user.id))

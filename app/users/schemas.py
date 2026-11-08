@@ -19,3 +19,13 @@ class UserResponse(BaseModel):
     full_name: str | None = Field(default=None)
     bio: str | None = Field(default=None)
     created_at: datetime
+
+
+class UserLogin(BaseModel):
+    login: str = Field(min_length=3, max_length=30, pattern=r"^[a-zA-Z0-9._]+$")
+    password: str = Field(min_length=8, max_length=128)
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "Bearer"
