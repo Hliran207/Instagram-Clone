@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.core.errors import InvalidCredentialsError
+from app.core.errors import InvalidCredentialsError, UserNotFoundError
 from app.core.security import hash_password, verify_password
 from app.users.models import User
 from app.users.repository import create_user, get_user_by_email, get_user_by_username
@@ -49,11 +49,8 @@ def update_user(session: Session, user: User, data: UserUpdate) -> User:
     return user
 
 
-def get_user_profile(session: Session, username) -> UserPublic:
+def get_user_profile(session: Session, username) -> UserPublic | None:
     user_response = get_user_by_username(session, username)
-    return UserPublic(
-        username=user_response.username,
-        full_name=user_response.full_name,
-        bio=user_response.bio,
-        created_at=user_response.created_at,
-    )
+    if user_response is None:
+        raise UserNotFoundError("User not found")
+    return user_response
