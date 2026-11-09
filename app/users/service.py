@@ -4,7 +4,7 @@ from app.core.errors import InvalidCredentialsError
 from app.core.security import hash_password, verify_password
 from app.users.models import User
 from app.users.repository import create_user, get_user_by_email, get_user_by_username
-from app.users.schemas import UserCreate
+from app.users.schemas import UserCreate, UserUpdate
 
 
 def register_user(session: Session, data: UserCreate) -> User:
@@ -38,4 +38,12 @@ def authenticate_user(session: Session, login: str, password: str) -> User:
         raise InvalidCredentialsError("Invalid credentials")
     if not verify_password(password, user.password_hash):
         raise InvalidCredentialsError("Invalid credentials")
+    return user
+
+
+def update_user(session: Session, user: User, data: UserUpdate) -> User:
+    changes = data.model_dump(exclude_unset=True)
+    for key, value in changes.items():
+        setattr(user, key, value)
+    session.commit()
     return user

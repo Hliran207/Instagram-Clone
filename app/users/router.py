@@ -4,8 +4,14 @@ from app.core.db import SessionDep
 from app.core.security import create_access_token
 from app.users.dependencies import CurrentUser
 from app.users.models import User
-from app.users.schemas import TokenResponse, UserCreate, UserLogin, UserResponse
-from app.users.service import authenticate_user, register_user
+from app.users.schemas import (
+    TokenResponse,
+    UserCreate,
+    UserLogin,
+    UserResponse,
+    UserUpdate,
+)
+from app.users.service import authenticate_user, register_user, update_user
 
 router = APIRouter(tags=["users"])
 
@@ -26,3 +32,8 @@ def login_user(data: UserLogin, session: SessionDep) -> TokenResponse:
 @router.get("/users/me", response_model=UserResponse)
 def read_me(user: CurrentUser) -> User:
     return user
+
+
+@router.patch("/users/me", response_model=UserResponse)
+def update_me(user: CurrentUser, data: UserUpdate, session: SessionDep) -> User:
+    return update_user(session, user, data)

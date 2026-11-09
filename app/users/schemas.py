@@ -29,3 +29,8 @@ class UserLogin(BaseModel):
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "Bearer"
+
+
+class UserUpdate(BaseModel):
+    full_name: str | None = Field(max_length=30, default=None)
+    bio: str | None = Field(max_length=150, default=None)
