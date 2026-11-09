@@ -49,7 +49,7 @@ def update_user(session: Session, user: User, data: UserUpdate) -> User:
     return user
 
 
-def get_user_profile(session: Session, username) -> User:
+def get_user_profile(session: Session, username: str) -> User:
     user_response = get_user_by_username(session, username)
     if user_response is None:
         raise UserNotFoundError("User not found")
