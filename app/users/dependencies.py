@@ -10,7 +10,7 @@ from app.core.errors import NotAuthenticatedError
 from app.users.models import User
 from app.users.repository import get_user_by_id
 
-bearer = HTTPBearer()
+bearer = HTTPBearer(auto_error=False)
 
 
 def get_current_user(
