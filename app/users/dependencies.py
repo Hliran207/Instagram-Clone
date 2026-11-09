@@ -14,9 +14,11 @@ bearer = HTTPBearer(auto_error=False)
 
 
 def get_current_user(
-    credentials: Annotated[HTTPAuthorizationCredentials, Depends(bearer)],
+    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer)],
     session: SessionDep,
 ) -> User:
+    if credentials is None:
+        raise NotAuthenticatedError("Not authenticated")
     try:
         payload = jwt.decode(
             credentials.credentials, settings.jwt_secret, algorithms=["HS256"]
