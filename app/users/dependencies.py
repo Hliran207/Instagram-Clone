@@ -22,10 +22,10 @@ def get_current_user(
             credentials.credentials, settings.jwt_secret, algorithms=["HS256"]
         )
     except jwt.InvalidTokenError as err:
-        raise NotAuthenticatedError("Invalid or Expired password") from err
+        raise NotAuthenticatedError("Invalid or Expired token") from err
     user = get_user_by_id(session, int(payload["sub"]))
     if user is None:
-        raise NotAuthenticatedError("Invalid or Expired password")
+        raise NotAuthenticatedError("Invalid or Expired token")
     return user
 
 
