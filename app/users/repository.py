@@ -41,3 +41,7 @@ def get_user_by_username(session: Session, username: str) -> User | None:
 def get_user_by_email(session: Session, email: str) -> User | None:
     query = select(User).where(func.lower(User.email) == email.lower())
     return session.scalar(query)
+
+
+def get_user_by_id(session: Session, user_id: int) -> User | None:
+    return session.get(User, user_id)
