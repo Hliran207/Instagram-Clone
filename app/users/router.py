@@ -46,5 +46,5 @@ def update_me(user: CurrentUser, data: UserUpdate, session: SessionDep) -> User:
 
 
 @router.get("/users/{username}", response_model=UserPublic)
-def read_user(username: str, session: SessionDep) -> UserPublic:
+def read_user(username: str, session: SessionDep) -> User:
     return get_user_profile(session, username)

@@ -4,7 +4,7 @@ from app.core.errors import InvalidCredentialsError, UserNotFoundError
 from app.core.security import hash_password, verify_password
 from app.users.models import User
 from app.users.repository import create_user, get_user_by_email, get_user_by_username
-from app.users.schemas import UserCreate, UserPublic, UserUpdate
+from app.users.schemas import UserCreate, UserUpdate
 
 
 def register_user(session: Session, data: UserCreate) -> User:
@@ -49,7 +49,7 @@ def update_user(session: Session, user: User, data: UserUpdate) -> User:
     return user
 
 
-def get_user_profile(session: Session, username) -> UserPublic | None:
+def get_user_profile(session: Session, username) -> User:
     user_response = get_user_by_username(session, username)
     if user_response is None:
         raise UserNotFoundError("User not found")
