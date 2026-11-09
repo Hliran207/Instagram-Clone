@@ -8,10 +8,16 @@ from app.users.schemas import (
     TokenResponse,
     UserCreate,
     UserLogin,
+    UserPublic,
     UserResponse,
     UserUpdate,
 )
-from app.users.service import authenticate_user, register_user, update_user
+from app.users.service import (
+    authenticate_user,
+    get_user_profile,
+    register_user,
+    update_user,
+)
 
 router = APIRouter(tags=["users"])
 
@@ -37,3 +43,8 @@ def read_me(user: CurrentUser) -> User:
 @router.patch("/users/me", response_model=UserResponse)
 def update_me(user: CurrentUser, data: UserUpdate, session: SessionDep) -> User:
     return update_user(session, user, data)
+
+
+@router.get("/users/{username}", response_model=UserPublic)
+def read_user(username: str, session: SessionDep) -> UserPublic:
+    return get_user_profile(session, username)

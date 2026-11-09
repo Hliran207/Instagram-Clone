@@ -4,7 +4,7 @@ from app.core.errors import InvalidCredentialsError
 from app.core.security import hash_password, verify_password
 from app.users.models import User
 from app.users.repository import create_user, get_user_by_email, get_user_by_username
-from app.users.schemas import UserCreate, UserUpdate
+from app.users.schemas import UserCreate, UserPublic, UserUpdate
 
 
 def register_user(session: Session, data: UserCreate) -> User:
@@ -47,3 +47,13 @@ def update_user(session: Session, user: User, data: UserUpdate) -> User:
         setattr(user, key, value)
     session.commit()
     return user
+
+
+def get_user_profile(session: Session, username) -> UserPublic:
+    user_response = get_user_by_username(session, username)
+    return UserPublic(
+        username=user_response.username,
+        full_name=user_response.full_name,
+        bio=user_response.bio,
+        created_at=user_response.created_at,
+    )

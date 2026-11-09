@@ -34,3 +34,11 @@ class TokenResponse(BaseModel):
 class UserUpdate(BaseModel):
     full_name: str | None = Field(max_length=30, default=None)
     bio: str | None = Field(max_length=150, default=None)
+
+
+class UserPublic(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    username: str
+    full_name: str | None = Field(default=None)
+    bio: str | None = Field(default=None)
+    created_at: datetime
