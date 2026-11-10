@@ -1,18 +1,18 @@
 from datetime import datetime
+from typing import Annotated
 
-from pydantic import BaseModel, Field, HttpUrl
-from pydantic_settings import ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl, UrlConstraints
 
 from app.users.schemas import UserSummary
 
 
 class PostCreate(BaseModel):
-    image_url: HttpUrl = Field(max_length=2048)
+    image_url: Annotated[HttpUrl, UrlConstraints(max_length=2048)]
     caption: str = Field(max_length=2200, default="")
 
 
 class PostUpdate(BaseModel):
-    caption: str | None = Field(max_length=2200, default=None)
+    caption: str = Field(max_length=2200)
 
 
 class PostResponse(BaseModel):
