@@ -24,3 +24,7 @@ class InvalidCredentialsError(InstagramError):
 
 class NotAuthenticatedError(InstagramError):
     code = "not_authenticated"
+
+
+class PostNotFoundError(InstagramError):
+    code = "post_not_found"

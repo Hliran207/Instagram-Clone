@@ -42,3 +42,10 @@ class UserPublic(BaseModel):
     full_name: str | None = Field(default=None)
     bio: str | None = Field(default=None)
     created_at: datetime
+
+
+class UserSummary(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    username: str
+    full_name: str | None = Field(default=None)
