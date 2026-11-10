@@ -9,6 +9,7 @@ from app.core.errors import (
     InstagramError,
     InvalidCredentialsError,
     NotAuthenticatedError,
+    PostNotFoundError,
     UsernameAlreadyExistsError,
     UserNotFoundError,
 )
@@ -21,6 +22,7 @@ STATUS_CODES: dict[type[InstagramError], int] = {
     UserNotFoundError: 404,
     InvalidCredentialsError: 401,
     NotAuthenticatedError: 401,
+    PostNotFoundError: 404,
 }
 
 
